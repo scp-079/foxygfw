@@ -1,0 +1,7 @@
+[proxy]
+enabled = False
+hostname = 127.0.0.1
+port = 1080
+
+[custom]
+url = https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
