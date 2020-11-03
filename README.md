@@ -34,7 +34,7 @@ cp config.ini.example config.ini
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt    # 或 pip install -U requests[socks]
+pip install -r requirements.txt
 python main.py
 deactivate
 ```
