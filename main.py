@@ -140,7 +140,7 @@ def main() -> bool:
     result = False
 
     try:
-        copyright_text = ("FoxyProxy, Copyright (C) 2019-2020 SCP-079 <https://scp-079.org>\n"
+        copyright_text = ("FoxyGFW, Copyright (C) 2019-2020 SCP-079 <https://scp-079.org>\n"
                           "Licensed under the terms of the GNU General Public License v3 or later (GPLv3+)\n" +
                           "-" * 24)
         print(copyright_text)
