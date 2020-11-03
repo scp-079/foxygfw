@@ -32,7 +32,7 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.WARNING,
     filename="log",
-    filemode="w"
+    filemode="a"
 )
 logger = logging.getLogger(__name__)
 
@@ -88,6 +88,8 @@ base["whitePatterns"] = []
 
 def get_dict(rule: str) -> (int, dict):
     # Get pattern dict
+    result = (0, {})
+
     try:
         protocol = 1
         white = 1
@@ -126,25 +128,36 @@ def get_dict(rule: str) -> (int, dict):
             "active": True
         }
 
-        return white, the_dict
+        result = (white, the_dict)
     except Exception as ee:
+        print(f"[ERROR] Get dict error: {e}")
         logger.warning(f"Get dict error: {ee}", exc_info=True)
 
-    return 0, {}
+    return result
 
 
-def main():
+def main() -> bool:
+    result = False
+
     try:
+        copyright_text = ("FoxyProxy, Copyright (C) 2019-2020 SCP-079 <https://scp-079.org>\n"
+                          "Licensed under the terms of the GNU General Public License v3 or later (GPLv3+)\n" +
+                          "-" * 24)
+        print(copyright_text)
+
         result = get(url, proxies=proxies)
 
         if not result or not result.content:
-            return True
+            return False
 
         text = b64decode(result.content)
         text = text.decode("utf-8")
 
         if not text:
-            return True
+            return False
+
+        print("[INFO] Got the GFWList!")
+        print("[INFO] Processing...")
 
         rules = list(filter(None, text.split("\n")))
 
@@ -168,10 +181,20 @@ def main():
             else:
                 base["whitePatterns"].append(the_dict)
 
+        print("[INFO] Saving the output file...")
+
         with open("output.json", "w") as ff:
             dump(base, ff, indent=4)
+
+        print("[INFO] Succeeded!")
+        print("[INFO] Please check the file: output.json")
+
+        result = True
     except Exception as ee:
+        print(f"[ERROR] Main function error: {e}")
         logger.warning(f"Error: {ee}", exc_info=True)
+
+    return result
 
 
 if __name__ == "__main__":

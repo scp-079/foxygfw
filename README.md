@@ -8,7 +8,9 @@ Firefox 上的插件 [FoxyProxy](https://addons.mozilla.org/firefox/addon/foxypr
 
 此程序实现的功能很简单，用于从 GFWList 中生成一份 `json` 文件，将其导入到 FoxyProxy 后，可实现类似于 SwitchyOmega 插件的 Auto Switch 功能。
 
-注意：由于 FoxyProxy 的规则只能针对域名进行匹配，故 GFWList 中涉及网址具体路径的规则无法发挥其效果，不过好在这类规则数量较少，而本程序的策略是对涉及路径的规则直接采用其域名，将域名添加到自动代理的列表中。
+**注意：**由于 FoxyProxy 的规则只能针对域名进行匹配，故 GFWList 中涉及网址具体路径的规则无法发挥其效果，不过好在这类规则数量较少，而本程序的策略是对涉及路径的规则直接采用其域名，将域名添加到自动代理的列表中。
+
+**注意：**您可能需要先关闭 FoxyProxy 中的「同步」，否则导入的规则可能会无法生效，详情请见文末「排疑解答」。
 
 ## 使用方法
 
@@ -63,6 +65,18 @@ deactivate
 根据 FoxyProxy 的逻辑，代理的选择是自上而下的，如果 `Auto` 匹配不到，则它会尝试其下方的代理设置，因此，可在 `Auto` 下面的位置再添加一个 `Custom` 代理并启用，之后在 `Custom` 中添加自定义的规则即可。顺序如下图所示：
 
 ![](images/custom.png) 
+
+## 排疑解难
+
+关于导入规则后不生效的解决办法：
+
+由于 FoxyProxy 插件本身的[已知 Bug](https://github.com/foxyproxy/firefox-extension/issues/95)，导入规则后，用户可能会发现规则并没有生效。
+
+在 FoxyProxy 正式修复此问题之前，根据[该插件作者提供的方法](https://github.com/foxyproxy/firefox-extension/issues/95#issuecomment-669396670)，用户需要关闭「同步设置」功能，才可正常导入规则。
+
+![](images/synchronize.png)
+
+---
 
 ## 参考
 

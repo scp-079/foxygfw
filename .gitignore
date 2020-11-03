@@ -1,6 +1,7 @@
 data/
 tmp/
 .idea/
+*.sh
 log
 config.ini
 output.json
